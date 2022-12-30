@@ -1,6 +1,5 @@
 import 'package:app/assets/svg.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -26,7 +25,7 @@ class WelcomeScreen extends StatelessWidget {
 }
 
 class _LoginButtons extends StatelessWidget {
-  const _LoginButtons({super.key});
+  const _LoginButtons();
 
   @override
   Widget build(BuildContext context) {
@@ -73,37 +72,26 @@ class LoginButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Ink(
-        height: 50,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(6),
-          boxShadow: [
-            if (elevation)
-              const BoxShadow(
-                color: Colors.grey,
-                offset: Offset(0.0, 1.0), //(x,y)
-                blurRadius: 6.0,
-              ),
-          ],
-        ),
-        child: InkWell(
-          onTap: onTap,
-          highlightColor: hideFocus ? Colors.transparent : null,
-          splashColor: hideFocus ? Colors.transparent : null,
-          child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                if (svgLabel != null) ...[
-                  SizedBox(
-                      height: 19, width: 19, child: svgPictures[svgLabel]!),
-                  const SizedBox(width: 12)
-                ],
-                Text(text,
-                    style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.w700))
-              ]),
-        ));
+    return Material(
+        color: backgroundColor,
+        borderRadius: BorderRadius.circular(6),
+        elevation: elevation ? 4 : 0,
+        child: Ink(
+            height: 50,
+            child: InkWell(
+                onTap: onTap,
+                highlightColor: hideFocus ? Colors.transparent : null,
+                splashColor: hideFocus ? Colors.transparent : null,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  if (svgLabel != null) ...[
+                    SizedBox(
+                        height: 19, width: 19, child: svgPictures[svgLabel]!),
+                    const SizedBox(width: 12)
+                  ],
+                  Text(text,
+                      style: const TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.w700))
+                ]))));
   }
 }

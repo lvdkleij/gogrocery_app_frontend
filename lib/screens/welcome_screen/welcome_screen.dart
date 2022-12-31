@@ -17,15 +17,15 @@ class WelcomeScreen extends StatelessWidget {
               bottom: viewPaddingBottom,
               left: 32,
               right: 32,
-              child: const _LoginButtons(),
+              child: const LoginButtons(),
             ),
           ],
         ));
   }
 }
 
-class _LoginButtons extends StatelessWidget {
-  const _LoginButtons();
+class LoginButtons extends StatelessWidget {
+  const LoginButtons({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class _LoginButtons extends StatelessWidget {
         const SizedBox(height: 14),
         LoginButton(
           text: 'Continue with email',
-          onTap: () => context.go('/login_with_email'),
+          onTap: () => context.push('/login_with_email'),
           hideFocus: true,
           elevation: false,
         ),

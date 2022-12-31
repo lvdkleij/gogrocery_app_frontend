@@ -30,6 +30,37 @@ void main() {
     expect(loginButton.svgLabel, SvgLabels.googleLogo);
   });
 
+  testWidgets('LoginButtons contains apple, google and email login buttons',
+      (tester) async {
+    const loginButtons = LoginButtons();
+
+    await tester.pumpWidget(const MaterialApp(home: loginButtons));
+
+    final buttonsFinder = find.byType(LoginButton);
+    expect(buttonsFinder, findsNWidgets(3));
+
+    final googleLoginButton = tester.widget<LoginButton>(buttonsFinder.at(0));
+
+    expect(googleLoginButton.text, 'Continue with Google');
+    expect(googleLoginButton.svgLabel, SvgLabels.googleLogo);
+    expect(googleLoginButton.backgroundColor, Colors.white);
+    expect(googleLoginButton.elevation, true);
+
+    final appleLoginButton = tester.widget<LoginButton>(buttonsFinder.at(1));
+
+    expect(appleLoginButton.text, 'Continue with Apple');
+    expect(appleLoginButton.svgLabel, SvgLabels.appleLogo);
+    expect(appleLoginButton.backgroundColor, Colors.white);
+    expect(appleLoginButton.elevation, true);
+
+    final emailLoginbutton = tester.widget<LoginButton>(buttonsFinder.at(2));
+
+    expect(emailLoginbutton.text, 'Continue with email');
+    expect(emailLoginbutton.svgLabel, null);
+    expect(emailLoginbutton.backgroundColor, Colors.transparent);
+    expect(emailLoginbutton.elevation, false);
+  });
+
   testWidgets('LoginButton has correct text and svg', (tester) async {
     final loginButton = LoginButton(
         onTap: () {},

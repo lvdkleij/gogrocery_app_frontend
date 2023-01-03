@@ -1,5 +1,8 @@
+import 'package:app/providers/internal_api/internal_api_client.dart';
+import 'package:app/providers/user_session/user_session.dart';
 import 'package:app/widgets/top_navigation_bar/top_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginWithEmailScreen extends StatefulWidget {
@@ -39,7 +42,7 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'Enter your email address. We will send a code a code to verify it\'s you',
+                        'Enter your email address. We will send a code to verify it\'s you',
                         style: TextStyle(
                             fontWeight: FontWeight.w600,
                             fontSize: 14,
@@ -78,16 +81,15 @@ class _LoginWithEmailScreen extends State<LoginWithEmailScreen> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               final email = emailController.text;
-                              // var response = await context
-                              //     .read<InternalApiClient>()
-                              //     .userService
-                              //     .loginWithEmail(email: email)
-                              //     .then((value) {
-                              //   context
-                              //       .read<UserSessionProvider>()
-                              //       .setUserSession(email: email);
-                              //   context.push('/login_with_email_verify');
-                              // });
+                              var response = await context
+                                  .read<InternalApiClient>()
+                                  .userService
+                                  .loginWithEmail(email: email)
+                                  .then((value) {
+                                context
+                                    .read<UserSessionProvider>()
+                                    .setUserSession(email: email);
+                              });
                             }
                           },
                           child: Text('Continue'),

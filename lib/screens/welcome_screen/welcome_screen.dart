@@ -7,16 +7,46 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final viewPaddingBottom = MediaQuery.of(context).viewPadding.bottom + 16;
+    final viewPadding = MediaQuery.of(context).viewPadding;
 
-    return Material(
-        color: Colors.green[400],
-        child: Stack(
+    return Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: Stack(
           children: [
+            Container(
+                decoration: BoxDecoration(
+              color: Colors.green[300],
+              image: const DecorationImage(
+                  fit: BoxFit.fill,
+                  image: AssetImage(
+                    'assets/images/welcome_image.jpg',
+                  )),
+            )),
+            Container(
+                decoration: const BoxDecoration(
+                    gradient: LinearGradient(stops: [
+              0,
+              0.65,
+              1
+            ], colors: [
+              Colors.white,
+              Colors.transparent,
+              Colors.black
+            ], begin: Alignment.topCenter, end: Alignment.bottomCenter))),
             Positioned(
-              bottom: viewPaddingBottom,
-              left: 32,
-              right: 32,
+                top: viewPadding.top + 32,
+                left: 0,
+                right: 0,
+                child: const Center(
+                  child: Text(
+                    'GoGrocery',
+                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.w600),
+                  ),
+                )),
+            Positioned(
+              bottom: viewPadding.bottom + 16,
+              left: 42,
+              right: 42,
               child: const LoginButtons(),
             ),
           ],
@@ -35,17 +65,20 @@ class LoginButtons extends StatelessWidget {
             text: 'Continue with Google',
             backgroundColor: Colors.white,
             svgLabel: SvgLabels.googleLogo,
+            elevation: false,
             onTap: () {}),
-        const SizedBox(height: 14),
+        const SizedBox(height: 18),
         LoginButton(
             text: 'Continue with Apple',
             backgroundColor: Colors.white,
             svgLabel: SvgLabels.appleLogo,
+            elevation: false,
             onTap: () {}),
         const SizedBox(height: 14),
         LoginButton(
           text: 'Continue with email',
           onTap: () => context.push('/login_with_email'),
+          textColor: Colors.white,
           hideFocus: true,
           elevation: false,
         ),
@@ -61,12 +94,15 @@ class LoginButton extends StatelessWidget {
   final bool hideFocus;
   final SvgLabels? svgLabel;
   final bool elevation;
+  final Color textColor;
+
   const LoginButton(
       {super.key,
       required this.onTap,
       required this.text,
       this.svgLabel,
       this.elevation = true,
+      this.textColor = Colors.black,
       this.hideFocus = false,
       this.backgroundColor = Colors.transparent});
 
@@ -77,7 +113,7 @@ class LoginButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         elevation: elevation ? 4 : 0,
         child: Ink(
-            height: 50,
+            height: 46,
             child: InkWell(
                 onTap: onTap,
                 highlightColor: hideFocus ? Colors.transparent : null,
@@ -90,8 +126,8 @@ class LoginButton extends StatelessWidget {
                     const SizedBox(width: 12)
                   ],
                   Text(text,
-                      style: const TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.w700))
+                      style: TextStyle(
+                          color: textColor, fontWeight: FontWeight.w700))
                 ]))));
   }
 }

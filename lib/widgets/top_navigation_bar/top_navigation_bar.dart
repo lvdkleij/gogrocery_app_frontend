@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TopNavigationToolbar extends StatelessWidget {
-  static const toolbarHeight = 56.0;
+  static const toolbarHeight = 48.0;
 
   final Color backgroundColor;
   final String title;
@@ -21,6 +21,7 @@ class TopNavigationToolbar extends StatelessWidget {
     final viewPaddingTop = MediaQuery.of(context).viewPadding.top;
     return Container(
         color: backgroundColor,
+        height: viewPaddingTop + toolbarHeight,
         child: Column(children: [
           SizedBox(height: viewPaddingTop),
           SizedBox(
@@ -48,7 +49,7 @@ class TopNavigationToolbar extends StatelessWidget {
 class ImageButtonSl extends StatelessWidget {
   final Color backgroundColor;
   final bool hideFocus;
-  final IconData icon;
+  final Icon icon;
   final VoidCallback onTap;
 
   const ImageButtonSl({
@@ -63,6 +64,7 @@ class ImageButtonSl extends StatelessWidget {
   Widget build(BuildContext context) {
     return Material(
         borderRadius: BorderRadius.circular(50),
+        color: Colors.transparent,
         elevation: 0,
         child: Ink(
           decoration: BoxDecoration(
@@ -72,7 +74,7 @@ class ImageButtonSl extends StatelessWidget {
             onTap: onTap,
             highlightColor: hideFocus ? Colors.transparent : null,
             splashColor: hideFocus ? Colors.transparent : null,
-            child: Icon(icon, size: 38),
+            child: icon,
           ),
         ));
   }

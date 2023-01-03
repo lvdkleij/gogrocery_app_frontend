@@ -9,6 +9,7 @@ void main() {
     final loginButton = LoginButton(onTap: () {}, text: 'text');
     expect(loginButton.elevation, true);
     expect(loginButton.hideFocus, false);
+    expect(loginButton.textColor, Colors.black);
     expect(loginButton.backgroundColor, Colors.transparent);
     expect(loginButton.svgLabel, null);
   });
@@ -20,11 +21,13 @@ void main() {
       backgroundColor: Colors.black,
       elevation: false,
       hideFocus: true,
+      textColor: Colors.red,
       svgLabel: SvgLabels.googleLogo,
     );
 
     expect(loginButton.text, 'text');
     expect(loginButton.backgroundColor, Colors.black);
+    expect(loginButton.textColor, Colors.red);
     expect(loginButton.elevation, false);
     expect(loginButton.hideFocus, true);
     expect(loginButton.svgLabel, SvgLabels.googleLogo);
@@ -44,14 +47,14 @@ void main() {
     expect(googleLoginButton.text, 'Continue with Google');
     expect(googleLoginButton.svgLabel, SvgLabels.googleLogo);
     expect(googleLoginButton.backgroundColor, Colors.white);
-    expect(googleLoginButton.elevation, true);
+    expect(googleLoginButton.elevation, false);
 
     final appleLoginButton = tester.widget<LoginButton>(buttonsFinder.at(1));
 
     expect(appleLoginButton.text, 'Continue with Apple');
     expect(appleLoginButton.svgLabel, SvgLabels.appleLogo);
     expect(appleLoginButton.backgroundColor, Colors.white);
-    expect(appleLoginButton.elevation, true);
+    expect(appleLoginButton.elevation, false);
 
     final emailLoginbutton = tester.widget<LoginButton>(buttonsFinder.at(2));
 
@@ -59,6 +62,7 @@ void main() {
     expect(emailLoginbutton.svgLabel, null);
     expect(emailLoginbutton.backgroundColor, Colors.transparent);
     expect(emailLoginbutton.elevation, false);
+    expect(emailLoginbutton.textColor, Colors.white);
   });
 
   testWidgets('LoginButton has correct text and svg', (tester) async {
